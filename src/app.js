@@ -3,12 +3,14 @@ const cors = require("cors");
 const db = require("./config/db");
 const transactionRoute = require("./routes/transaction");
 const { getAllTransactions, addTransactionsBulk } = require("./controllers/transaction");
+const apiKeyMiddleware = require("./middlewares/auth");
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(apiKeyMiddleware)
 
 app.use("/api/v1/transaction", transactionRoute);
 
